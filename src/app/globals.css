@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+body {
+  background-image: url("/bg-tiled-light.jpg");
+  background-repeat: repeat;
+}
+
+nav {
+  opacity: 0.95;
+  z-index: 9;
+}
+
+.links a {
+  color: lightgrey;
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: white;
+}
+
+main {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-left: 2px solid #ccc;
+  border-right: 2px solid #ccc;
+  margin-top: 72px;
+}
+
+.custom-glow {
+  box-shadow: 0 8px 15px rgba(5, 75, 75, 0.6);
+}
+
+.course-img img {
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+  cursor: pointer;
+}
+.course-img:hover img {
+  filter: grayscale(0%);
+}
+
+#lit-connect-modal-container {
+  z-index: 51;
+}
