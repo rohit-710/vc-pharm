@@ -39,19 +39,11 @@ const Content = () => {
 
   const getCollections = async (wallet: string) => {
     const collections: any = wallet
-      ? await getCredentialCollections(
-          "polygon",
-          wallet,
-          {
-            issuers: ["did:polygon:0xa22CaDEdE67c11dc1444E507fDdd9b831a67aBd1"],
-            types: ["CourseSchema"],
-          },
-          environment
-        )
+      ? await getCredentialCollections("polygon", wallet, {}, environment)
       : [];
 
     const validContracts = [
-      "0x6cacd4EC40967FfC7430c2cD552bcF8B2c61391f", // Shibetoshi University courses
+      "0xD1298b95Eb5a9685035060A22D13DD8FbFA72e19", // Shibetoshi University courses
     ];
 
     const filtered = collections?.filter((obj: any) =>
@@ -68,15 +60,16 @@ const Content = () => {
         <div className="grid grid-cols-1 sm:grid-cols-6 sm:gap-12 p-4">
           <div className="sm:col-span-4 flex flex-col space-3">
             <h1 className="text-4xl font-bold mt-8 mb-4">
-              Welcome to Dogemoto University
+              Welcome to Pharmacy
             </h1>
             <p className="text-lg mb-5">
-              Verify your courses from other Universities here.
+              Verify your prescriptions from other Pharmacies here.
             </p>
             <p className="text-md mb-8 font-light">
               This page exists to demonstrate the functionality of third party
-              verification of your credentials. Imagine that you have navigated
-              to a different university website when using this page.
+              verification of your credentials (prescriptions). Imagine that you
+              have navigated to a different pharmacy website when using this
+              page.
             </p>
           </div>
 
@@ -85,7 +78,7 @@ const Content = () => {
               <FaCheckCircle className="mr-4 " size={48} />
               <span>
                 This page uses a different client API key within a different
-                project than Shibetoshi University to retreive the credentials.
+                project than dPharm to retreive the credentials.
               </span>
             </div>
           </div>

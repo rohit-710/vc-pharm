@@ -24,11 +24,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const validContracts = [
-    "0xC54424bd19462ad3358404c24523C9752f9D8B34",
-    "0x685E6aE7925210F69889747d49D6bCC10A49c032",
-    "0xEB5c3E84831ED7f158307ebC2AfBc064EfF778b4",
-  ];
+  const validContracts = ["0xD1298b95Eb5a9685035060A22D13DD8FbFA72e19"];
 
   try {
     const data = await req.json();

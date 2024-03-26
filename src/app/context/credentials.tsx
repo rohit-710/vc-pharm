@@ -43,8 +43,8 @@ type CredentialContextType = {
   verify: Function;
   wallet: Wallet;
   refreshCredentials: Function;
-  hasStudentId: boolean;
-  completedCourses: string[];
+  hasPrescription: boolean;
+  issuedPrescriptions: string[];
 };
 
 const CredentialContext = createContext<CredentialContextType | null>(null);
@@ -55,8 +55,8 @@ export function CredentialProvider({
   children: React.ReactNode;
 }) {
   const [collections, setCollections] = useState<Collection[] | null>(null);
-  const [hasStudentId, setHasStudentId] = useState(false);
-  const [completedCourses, setCompletedCourses] = useState<string[]>([]);
+  const [hasPrescription, setHasPrescription] = useState(false);
+  const [issuedPrescriptions, setissuedPrescriptions] = useState<string[]>([]);
 
   const { primaryWallet: wallet } = useDynamicContext();
   const environment = process.env.NEXT_PUBLIC_CROSSMINT_ENV || "";
@@ -70,20 +70,11 @@ export function CredentialProvider({
 
   const getCollections = async (wallet: string) => {
     const collections: any = wallet
-      ? await getCredentialCollections(
-          "polygon",
-          wallet,
-          {
-            issuers: ["did:polygon:0xa22CaDEdE67c11dc1444E507fDdd9b831a67aBd1"],
-            types: ["StudentId", "CourseSchema"],
-          },
-          environment
-        )
+      ? await getCredentialCollections("polygon", wallet, {}, environment)
       : [];
 
     const validContracts = [
-      "0xd9eeC3D7BE67F02Ca103c0C27fc45f4AA6612360", // student id
-      "0x6cacd4EC40967FfC7430c2cD552bcF8B2c61391f", // courses
+      "0xD1298b95Eb5a9685035060A22D13DD8FbFA72e19", // student id
       //"0x010beF737dA4f831EaBAf0B6460e5b3Df32Ec9F5", // certificate
     ];
 
@@ -94,12 +85,12 @@ export function CredentialProvider({
     console.log("filtered:", filtered);
     setCollections(filtered || []);
 
-    const studentIdExists = collections?.some(
+    const prescriptionExists = collections?.some(
       (collection: any) =>
         collection.contractAddress ===
-        "0xd9eeC3D7BE67F02Ca103c0C27fc45f4AA6612360"
+        "0xD1298b95Eb5a9685035060A22D13DD8FbFA72e19"
     );
-    setHasStudentId(studentIdExists || false);
+    setHasPrescription(prescriptionExists || false);
 
     const completed: any[] = (filtered || []).flatMap(
       (collection: Collection) =>
@@ -119,7 +110,7 @@ export function CredentialProvider({
         })
     );
 
-    setCompletedCourses(completed);
+    setissuedPrescriptions(completed);
   };
 
   const retrieve = async (id: string) => {
@@ -156,8 +147,8 @@ export function CredentialProvider({
         verify: verify,
         wallet: wallet || { address: "" },
         refreshCredentials: () => getCollections(wallet?.address || ""),
-        hasStudentId: hasStudentId,
-        completedCourses: completedCourses,
+        hasPrescription: hasPrescription,
+        issuedPrescriptions: issuedPrescriptions,
       }}
     >
       {children}

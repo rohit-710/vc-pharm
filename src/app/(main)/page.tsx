@@ -110,7 +110,7 @@ const Content = () => {
           </p>
           <br />
 
-          <Link href="/dogemoto">
+          <Link href="/pharmacy">
             <button className="mt-4 bg-green-500 hover:bg-green-700 text-white text--2xl font-bold py-4 px-6 rounded">
               Verify at a Pharmacy
             </button>

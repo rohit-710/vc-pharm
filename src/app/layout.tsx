@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <head>
-        <title>Shibetoshi University</title>
+        <title>dPharm</title>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="/favicon.png" type="image/png" />
       </head>

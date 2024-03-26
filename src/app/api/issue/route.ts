@@ -1,5 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
+// Assuming the structure of the request body matches the PrescriptionRequestBody interface
 interface PrescriptionRequestBody {
   doctorId: string;
   drug: string;
@@ -10,25 +12,22 @@ interface PrescriptionRequestBody {
   dosage: string;
 }
 
-interface CrossmintApiResponse {
-  message: string; // Adjust according to actual API response
-}
-
-// Define the handler for the POST method explicitly
-export async function POST(
-  req: NextApiRequest,
-  res: NextApiResponse<CrossmintApiResponse | { message: string }>
-) {
-  const { doctorId, drug, quantity, date, recipient, password, dosage } =
-    req.body as PrescriptionRequestBody;
+// Define the handler for the POST method
+export async function POST(req: NextRequest) {
+  const body = await req.json();
 
   const crossmintApiKey = process.env.CROSSMINT_API_KEY || "";
   const collectionId = process.env.COLLECTION_ID || "default_collection_id";
 
   const credentialParams = {
-    recipient: recipient,
+    recipient: `polygon:${body.recipient}`,
     credential: {
-      subject: { doctorId, drug, quantity, dosage },
+      subject: {
+        doctorId: body.doctorId,
+        drug: body.drug,
+        quantity: body.quantity,
+        dosage: body.dosage,
+      },
       expiresAt: "2034-02-02",
     },
     metadata: {
@@ -62,18 +61,23 @@ export async function POST(
         "Details:",
         errorDetails
       );
-      throw new Error(
-        `API call failed with status: ${response.status}, Details: ${errorDetails}`
+      return new NextResponse(
+        JSON.stringify({
+          message: `API call failed with status: ${response.status}, Details: ${errorDetails}`,
+        }),
+        { status: 500 }
       );
     }
 
     const data = await response.json();
-    return res.status(200).json(data);
+    return new NextResponse(JSON.stringify(data), { status: 200 });
   } catch (error) {
     console.error("Error issuing credential:", error);
-    console.log("Request body:", credentialParams);
-    return res
-      .status(500)
-      .json({ message: "Internal Server Error while issuing credential" });
+    return new NextResponse(
+      JSON.stringify({
+        message: "Internal Server Error while issuing credential",
+      }),
+      { status: 500 }
+    );
   }
 }

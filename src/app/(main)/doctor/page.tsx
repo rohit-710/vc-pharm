@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 import React, { useState, FormEvent, ChangeEvent } from "react";
 
 interface FormState {
@@ -37,7 +37,7 @@ export default function Doctor() {
       return;
     }
 
-    const formattedRecipient = `polygon:${form.recipient}`;
+    const formattedRecipient = form.recipient;
     const credentialParams = {
       ...form,
       recipient: formattedRecipient,
@@ -83,32 +83,41 @@ export default function Doctor() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col bg-white rounded overflow-hidden shadow-lg p-4"
+      onSubmit={handleSubmit}
+    >
+      {/* Form fields */}
       <input
+        className="mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="doctorId"
         value={form.doctorId}
         onChange={handleChange}
-        placeholder="Doctor ID"
+        placeholder="Doctor ID1"
       />
       <input
+        className="mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="drug"
         value={form.drug}
         onChange={handleChange}
         placeholder="Drug Name"
       />
       <input
+        className="mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="quantity"
         value={form.quantity}
         onChange={handleChange}
         placeholder="Quantity"
       />
       <input
+        className="mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="dosage"
         value={form.dosage}
         onChange={handleChange}
         placeholder="Dosage"
       />
       <input
+        className="mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="date"
         value={form.date}
         onChange={handleChange}
@@ -116,19 +125,26 @@ export default function Doctor() {
         type="date"
       />
       <input
+        className="mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="recipient"
         value={form.recipient}
         onChange={handleChange}
         placeholder="Recipient"
       />
       <input
+        className="mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="password"
         type="password"
         value={form.password}
         onChange={handleChange}
-        placeholder="Password"
+        placeholder="Password to issue a Prescription. Use 'FakeDoctor1@'"
       />
-      <button type="submit">Issue Credential</button>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="submit"
+      >
+        Issue Credential
+      </button>
     </form>
   );
 }
