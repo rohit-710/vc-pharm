@@ -31,7 +31,7 @@ const Content = () => {
   const environment = process.env.NEXT_PUBLIC_CROSSMINT_ENV || "";
 
   useEffect(() => {
-    const clientKey = process.env.NEXT_PUBLIC_DOGEMOTO_KEY || "";
+    const clientKey = process.env.NEXT_PUBLIC_PHARMACY_KEY || "";
     CrossmintAPI.init(clientKey, ["https://ipfs.io/ipfs/{cid}"]);
 
     getCollections(wallet?.address || "");
