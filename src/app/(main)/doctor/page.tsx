@@ -93,7 +93,7 @@ export default function Doctor() {
         name="doctorId"
         value={form.doctorId}
         onChange={handleChange}
-        placeholder="Doctor ID1"
+        placeholder="Doctor ID"
       />
       <input
         className="mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"

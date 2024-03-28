@@ -92,31 +92,21 @@ export function CredentialProvider({
     );
     setHasPrescription(prescriptionExists || false);
 
-    const completed: any[] = (filtered || []).flatMap(
-      (collection: Collection) =>
-        collection.nfts.flatMap((nft: NFT) => {
-          const courseAttributes = nft.metadata.attributes.filter(
-            (attribute: any) =>
-              attribute.trait_type === "credentialType" &&
-              attribute.value === "course"
-          );
-          if (courseAttributes.length > 0) {
-            const courseIdAttribute = nft.metadata.attributes.find(
-              (attribute: any) => attribute.trait_type === "courseId"
-            );
-            return courseIdAttribute ? courseIdAttribute.value : [];
-          }
-          return [];
-        })
-    );
-
-    setissuedPrescriptions(completed);
+    setissuedPrescriptions(prescriptionExists);
   };
 
   const retrieve = async (id: string) => {
     console.debug("retrieving credential with id: ", id);
     const credential = await getCredentialFromId(id, environment);
     console.debug("retrieve credential result: ", credential);
+    if (
+      credential != null &&
+      credential?.payload == null &&
+      credential?.credentialSubject != null
+    ) {
+      const subj = credential.credentialSubject;
+      console.log(subj);
+    }
 
     return credential;
   };
