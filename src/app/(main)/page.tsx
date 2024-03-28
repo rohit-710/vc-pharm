@@ -37,7 +37,7 @@ const Content = () => {
             <p className="mb-4 max-w-xl">
               To get started with the demo assume that you are a Doctor who
               wants to issue their patient a prescription as a verifiable
-              credential. Head over to "Doctor" to issue a verifiable
+              credential. Head over to 'Doctor' to issue a verifiable
               credential.
             </p>
             <Link href="/courses">
