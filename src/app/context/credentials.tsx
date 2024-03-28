@@ -99,11 +99,16 @@ export function CredentialProvider({
     console.debug("retrieving credential with id: ", id);
     const credential = await getCredentialFromId(id, environment);
     console.debug("retrieve credential result: ", credential);
-    if (
-      credential != null &&
-      credential?.payload == null &&
-      credential?.credentialSubject != null
-    ) {
+
+    // First, check if it's an EncryptedVerifiableCredential by checking for `payload`
+    if (credential != null && "payload" in credential) {
+      // Now TypeScript knows credential is EncryptedVerifiableCredential
+      console.debug(
+        "Working with an EncryptedVerifiableCredential:",
+        credential.payload
+      );
+    } else if (credential != null && "credentialSubject" in credential) {
+      // Now TypeScript knows credential is VerifiableCredential
       const subj = credential.credentialSubject;
       console.log(subj);
     }
