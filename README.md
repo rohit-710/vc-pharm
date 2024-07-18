@@ -50,17 +50,6 @@ Now, open [http://localhost:3000](http://localhost:3000) with your browser to se
 - **Identity**: Many companies are required to perform KYC on their customers when dealing with money transfers. Build a system that enables you to do KYC once and verify at your discretion with other companies without needing complete the same process over and over.
 - **Private NFTs**- Build an app where you can memorialize your favorite family photos, but store them encrypted on IPFS. You can rest assured they are safely stored online, but inaccessible to anyone but you.
 
-## Usage
-
-This demo is designed to showcase the power of verifiable credentials in an educational context. Here's a brief overview of how it works:
-
-- **Home Page**: The home page welcomes users to Shibetoshi University. If a user doesn't have a Student ID, they can create one by clicking on the "Create Student ID" button. This will open a form where they can enter their details and submit the form to issue a new Student ID credential.
-
-- **Courses Page**: The courses page lists all available courses. Each course has a test associated with it. Users can take the test by clicking on the course card. If they pass the test, a new Course credential is issued to them.
-
-- **Profile Page**: The profile page displays all the credentials a user has earned. It fetches the credentials from the blockchain and verifies them. Users can refresh their credentials by clicking on the "Refresh" button.
-
-- **Third-Party Verifier Page**: This page demonstrates how credentials issued by Shibetoshi University can be verified by a third party. It uses a different API key to simulate a third-party application.
 
 ## Contributing
 
